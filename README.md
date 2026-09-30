@@ -1,64 +1,70 @@
-# Nuxt Starter Template
+# SOAINT Test — POS System
 
-[![Nuxt UI](https://img.shields.io/badge/Made%20with-Nuxt%20UI-00DC82?logo=nuxt&labelColor=020420)](https://ui.nuxt.com)
+Ejercicio técnico de frontend. Nuxt 4 + Nuxt UI + Tailwind CSS 4 con autenticación JWT, roles (Supervisor/Operador), transacciones de venta, consultas, cancelaciones y devoluciones con cifrado AES.
 
-Use this template to get started with [Nuxt UI](https://ui.nuxt.com) quickly.
+## Stack
 
-- [Live demo](https://starter-template.nuxt.dev/)
-- [Documentation](https://ui.nuxt.com/docs/getting-started/installation/nuxt)
+- **Nuxt 4** / Vue 3 / TypeScript
+- **Nuxt UI** — componentes base
+- **Tailwind CSS 4** — estilos
+- **jsonwebtoken** — JWT con claims estándar (iss, iat, exp, aud, sub, Role)
+- **crypto-js** — cifrado AES de datos sensibles de tarjeta
+- **zod** — validación de formularios y payloads
 
-<a href="https://starter-template.nuxt.dev/" target="_blank">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://ui.nuxt.com/assets/templates/nuxt/starter-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="https://ui.nuxt.com/assets/templates/nuxt/starter-light.png">
-    <img alt="Nuxt Starter Template" src="https://ui.nuxt.com/assets/templates/nuxt/starter-light.png" width="830" height="466">
-  </picture>
-</a>
+## Usuarios de prueba
 
-> The starter template for Vue is on https://github.com/nuxt-ui-templates/starter-vue.
-
-## Quick Start
-
-```bash [Terminal]
-npm create nuxt@latest -- -t ui
-```
-
-## Deploy your own
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-name=starter&repository-url=https%3A%2F%2Fgithub.com%2Fnuxt-ui-templates%2Fstarter&demo-image=https%3A%2F%2Fui.nuxt.com%2Fassets%2Ftemplates%2Fnuxt%2Fstarter-dark.png&demo-url=https%3A%2F%2Fstarter-template.nuxt.dev%2F&demo-title=Nuxt%20Starter%20Template&demo-description=A%20minimal%20template%20to%20get%20started%20with%20Nuxt%20UI.)
+| Usuario      | Contraseña      | Rol        | Acceso                          |
+| ------------ | --------------- | ---------- | ------------------------------- |
+| `supervisor` | `supervisor123` | Supervisor | Cancelaciones y devoluciones    |
+| `operador`   | `operador123`   | Operador   | Ventas y consultas              |
 
 ## Setup
-
-Make sure to install the dependencies:
 
 ```bash
 pnpm install
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
+## Desarrollo
 
 ```bash
 pnpm dev
 ```
 
-## Production
+Abre `http://localhost:3000` — redirige al login.
 
-Build the application for production:
-
-```bash
-pnpm build
-```
-
-Locally preview production build:
+## Scripts
 
 ```bash
-pnpm preview
+pnpm dev        # Servidor de desarrollo
+pnpm build      # Build de producción
+pnpm lint       # ESLint
+pnpm typecheck  # Verificación de tipos
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## Estructura
 
-## Renovate integration
+```
+app/
+├── components/    # ConfirmModal, SuccessModal, ErrorAlert, GlobalLoader...
+├── composables/   # useAuth, useCardInput, useCrypto, useConfirmModal...
+├── layouts/       # default (sidebar + header), auth (login)
+├── middleware/    # auth, role
+└── pages/         # login, main, operador/*, supervisor/*
 
-Install [Renovate GitHub app](https://github.com/apps/renovate/installations/select_target) on your repository and you are good to go.
+server/
+├── api/auth/login.post.ts
+├── api/transactions/    # sale.post, index.get, cancel.patch, refund.patch
+└── utils/               # jwt.ts, mock-data.ts
+```
+
+## Endpoints
+
+| Método | Ruta                        | Rol        |
+| ------ | --------------------------- | ---------- |
+| POST   | `/api/auth/login`           | —          |
+| POST   | `/api/transactions/sale`    | Operador   |
+| GET    | `/api/transactions`         | Operador   |
+| PATCH  | `/api/transactions/cancel`  | Supervisor |
+| PATCH  | `/api/transactions/refund`  | Supervisor |
+
+Los datos de tarjeta (número, expiración, CVV) viajan cifrados con AES y nunca se muestran sin enmascarar en la UI.
