@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+@theme static {
+  --font-sans: 'Public Sans', sans-serif;
+
+  /* Azul royal (primary) - como las cards azules del diseño */
+  --color-royal-50: #EEF1FE;
+  --color-royal-100: #DFE5FD;
+  --color-royal-200: #C5D0FB;
+  --color-royal-300: #9DAFF8;
+  --color-royal-400: #6F85F4;
+  --color-royal-500: #2E4FF0;
+  --color-royal-600: #2541D8;
+  --color-royal-700: #1E34AE;
+  --color-royal-800: #1B2E8C;
+  --color-royal-900: #1A2B70;
+  --color-royal-950: #101843;
+
+  /* Sage - fondo claro verdoso del diseño */
+  --color-sage-50: #F6F7F3;
+  --color-sage-100: #EDF0E8;
+  --color-sage-200: #DDE2D3;
+  --color-sage-300: #C5CDB6;
+  --color-sage-400: #A8B394;
+  --color-sage-500: #8B9678;
+  --color-sage-600: #6F7A5E;
+  --color-sage-700: #58614C;
+  --color-sage-800: #484F3F;
+  --color-sage-900: #3C4236;
+  --color-sage-950: #1F231B;
+
+  /* Amarillo lima del diseño */
+  --color-posyellow-300: #FBE58A;
+  --color-posyellow-400: #F7D94C;
+  --color-posyellow-500: #F0C929;
+
+  /* Teal del diseño */
+  --color-posteal-400: #4FA9AC;
+  --color-posteal-500: #3D9DA0;
+  --color-posteal-600: #2E8387;
+
+  /* Negro carbón del sidebar */
+  --color-carbon-800: #23262B;
+  --color-carbon-900: #17191D;
+  --color-carbon-950: #0E1013;
+}
