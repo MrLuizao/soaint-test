@@ -46,3 +46,18 @@
   --color-carbon-900: #17191D;
   --color-carbon-950: #0E1013;
 }
+
+/* En dark mode los neutros (sage) se ven verdosos — los pasamos a grises */
+.dark {
+  --ui-bg: var(--color-carbon-900);
+  --ui-bg-muted: #1E2126;
+  --ui-bg-elevated: #23262B;
+  --ui-bg-accented: #2E3238;
+
+  --ui-border: #2E3238;
+  --ui-border-muted: #26292E;
+  --ui-border-accented: #3A3F46;
+
+  --ui-text-muted: #9BA1A8;
+  --ui-text-dimmed: #6E747C;
+}
